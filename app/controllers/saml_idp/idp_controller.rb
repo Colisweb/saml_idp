@@ -22,7 +22,7 @@ module SamlIdp
           @saml_idp_fail_msg = "Incorrect email or password."
         else
           @saml_response = idp_make_saml_response(person)
-          render :template => saml_idp_post_template_path, :layout => false
+          render :template => saml_idp_post_template_path
           return
         end
       end
@@ -32,7 +32,7 @@ module SamlIdp
     def logout
       idp_logout
       @saml_response = idp_make_saml_response(nil)
-      render :template => saml_idp_post_template_path, :layout => false
+      render :template => saml_idp_post_template_path
     end
 
     def idp_logout
