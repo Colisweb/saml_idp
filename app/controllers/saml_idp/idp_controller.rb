@@ -8,7 +8,7 @@ module SamlIdp
     before_filter :validate_saml_request, only: [:new, :create]
 
     def new
-      render template: "saml_idp/idp/new"
+      render template: saml_idp_new_template_path
     end
 
     def show
@@ -22,17 +22,17 @@ module SamlIdp
           @saml_idp_fail_msg = "Incorrect email or password."
         else
           @saml_response = idp_make_saml_response(person)
-          render :template => "saml_idp/idp/saml_post", :layout => false
+          render :template => saml_idp_post_template_path, :layout => false
           return
         end
       end
-      render :template => "saml_idp/idp/new"
+      render :template => saml_idp_new_template_path
     end
 
     def logout
       idp_logout
       @saml_response = idp_make_saml_response(nil)
-      render :template => "saml_idp/idp/saml_post", :layout => false
+      render :template => saml_idp_post_template_path, :layout => false
     end
 
     def idp_logout
@@ -49,5 +49,13 @@ module SamlIdp
       raise NotImplementedError
     end
     protected :idp_make_saml_response
+
+    def saml_idp_new_template_path
+      "saml_idp/idp/new"
+    end
+
+    def saml_idp_post_template_path
+      "saml_idp/idp/saml_post"
+    end
   end
 end
