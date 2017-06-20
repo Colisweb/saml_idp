@@ -19,14 +19,15 @@ module SamlIdp
       unless params[:email].blank? && params[:password].blank?
         person = idp_authenticate(params[:email], params[:password])
         if person.nil?
-          @saml_idp_fail_msg = "Incorrect email or password."
+          redirect_to :back, alert: 'Login failed'
         else
           @saml_response = idp_make_saml_response(person)
           render :template => saml_idp_post_template_path
-          return
         end
+      else
+        render :template => saml_idp_new_template_path
       end
-      render :template => saml_idp_new_template_path
+      
     end
 
     def logout
