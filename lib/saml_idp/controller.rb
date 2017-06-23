@@ -24,9 +24,7 @@ module SamlIdp
     end
 
     def decode_request(raw_saml_request)
-      s = self.saml_request = Request.from_deflated_request(raw_saml_request)
-      Rails.logger.info "DECODE RESQUEST :-->  #{s}"
-      s
+      self.saml_request = Request.from_deflated_request(raw_saml_request)
     end
 
     def authn_context_classref
