@@ -45,6 +45,8 @@ module SamlIdp
     end
 
     def build
+      message  = response_builder.raw
+      Rails.logger.info "RESPONSE BUILDER :-->  #{message}"
       @built ||= response_builder.encoded
     end
 
